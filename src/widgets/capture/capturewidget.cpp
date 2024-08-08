@@ -977,6 +977,28 @@ void CaptureWidget::keyPressEvent(QKeyEvent* e)
           this,
           new QKeyEvent(QEvent::KeyPress, Qt::Key_Return, Qt::NoModifier));
     }
+
+    // Handle SHIFT + Arrow keys
+    if (e->modifiers() & Qt::ShiftModifier) {
+        QPoint pos;
+        switch (e->key()) {
+            case Qt::Key_Left:
+                pos = m_selection->geometry().topLeft();
+                break;
+            case Qt::Key_Right:
+                pos = m_selection->geometry().topRight();
+                break;
+            case Qt::Key_Up:
+                pos = m_selection->geometry().topLeft();
+                break;
+            case Qt::Key_Down:
+                pos = m_selection->geometry().bottomLeft();
+                break;
+            default:
+                return;
+        }
+        updateMagnifierPosition(pos);
+    }
 }
 
 void CaptureWidget::keyReleaseEvent(QKeyEvent* e)
@@ -1927,4 +1949,14 @@ void CaptureWidget::drawInactiveRegion(QPainter* painter)
 
     painter->setClipRegion(grey);
     painter->drawRect(-1, -1, rect().width() + 1, rect().height() + 1);
+}
+void CaptureWidget::updateMagnifierPosition(const QPoint& pos)
+{
+    if (m_magnifier && m_selection->isVisible()) {
+        QPoint globalPos = mapToGlobal(pos);
+        QCursor::setPos(globalPos);
+        m_magnifier->move(pos.x() - m_magnifier->width() / 2,
+                          pos.y() - m_magnifier->height() / 2);
+        m_magnifier->update();
+    }
 }
