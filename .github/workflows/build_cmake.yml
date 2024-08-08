@@ -2,12 +2,16 @@ name: Building(CMake)
 
 on:
   push:
-    branches: [ master ]
+    branches: 
+      - master
+      - cursor
     paths-ignore:
       - 'README.md'
       - 'LICENSE'
   pull_request:
-    branches: [ master ]
+    branches: 
+      - master
+      - cursor
     paths-ignore:
       - 'README.md'
       - 'LICENSE'
