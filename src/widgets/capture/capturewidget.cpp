@@ -1485,8 +1485,10 @@ void CaptureWidget::updateActiveLayer(int layer)
 void CaptureWidget::updateMagnifier(const QPoint& pos)
 {
     if (m_magnifier) {
-        m_magnifier->setPosition(pos);
-        m_magnifier->setPixmap(m_context.screenshot);
+        m_magnifier->setGeometry(pos.x() - m_magnifier->width() / 2,
+                                 pos.y() - m_magnifier->height() / 2,
+                                 m_magnifier->width(),
+                                 m_magnifier->height());
         m_magnifier->update();
     }
 }
