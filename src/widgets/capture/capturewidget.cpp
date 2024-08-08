@@ -831,6 +831,7 @@ void CaptureWidget::mouseMoveEvent(QMouseEvent* e)
         if (!m_activeButton) {
             m_magnifier->show();
             m_magnifier->update();
+            updateMagnifier(e->pos());
         } else {
             m_magnifier->hide();
         }
