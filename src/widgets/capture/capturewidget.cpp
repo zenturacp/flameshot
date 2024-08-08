@@ -830,7 +830,6 @@ void CaptureWidget::mouseMoveEvent(QMouseEvent* e)
     if (m_magnifier) {
         if (!m_activeButton) {
             m_magnifier->show();
-            m_magnifier->update();
             updateMagnifier(e->pos());
         } else {
             m_magnifier->hide();
@@ -1018,6 +1017,7 @@ void CaptureWidget::moveCrosshairLeft()
     newPos.setX(newPos.x() - 1);
     QCursor::setPos(newPos);
     updateCursor();
+    updateMagnifier(mapFromGlobal(newPos));
 }
 
 void CaptureWidget::moveCrosshairRight()
@@ -1026,6 +1026,7 @@ void CaptureWidget::moveCrosshairRight()
     newPos.setX(newPos.x() + 1);
     QCursor::setPos(newPos);
     updateCursor();
+    updateMagnifier(mapFromGlobal(newPos));
 }
 
 void CaptureWidget::moveCrosshairUp()
@@ -1034,6 +1035,7 @@ void CaptureWidget::moveCrosshairUp()
     newPos.setY(newPos.y() - 1);
     QCursor::setPos(newPos);
     updateCursor();
+    updateMagnifier(mapFromGlobal(newPos));
 }
 
 void CaptureWidget::moveCrosshairDown()
@@ -1042,6 +1044,7 @@ void CaptureWidget::moveCrosshairDown()
     newPos.setY(newPos.y() + 1);
     QCursor::setPos(newPos);
     updateCursor();
+    updateMagnifier(mapFromGlobal(newPos));
 }
 
 void CaptureWidget::keyReleaseEvent(QKeyEvent* e)
@@ -1521,6 +1524,7 @@ void CaptureWidget::updateMagnifier(const QPoint& pos)
                                  pos.y() - m_magnifier->height() / 2,
                                  m_magnifier->width(),
                                  m_magnifier->height());
+        m_magnifier->updatePixmap(m_context.screenshot);
         m_magnifier->update();
     }
 }
