@@ -75,6 +75,10 @@ private slots:
     void childLeave();
 
     void deleteCurrentTool();
+    void moveCrosshairLeft();
+    void moveCrosshairRight();
+    void moveCrosshairUp();
+    void moveCrosshairDown();
 
     void setState(CaptureToolButton* b);
     void handleToolSignal(CaptureTool::Request r);

@@ -1012,6 +1012,38 @@ void CaptureWidget::keyPressEvent(QKeyEvent* e)
     }
 }
 
+void CaptureWidget::moveCrosshairLeft()
+{
+    QPoint newPos = QCursor::pos();
+    newPos.setX(newPos.x() - 1);
+    QCursor::setPos(newPos);
+    updateCursor();
+}
+
+void CaptureWidget::moveCrosshairRight()
+{
+    QPoint newPos = QCursor::pos();
+    newPos.setX(newPos.x() + 1);
+    QCursor::setPos(newPos);
+    updateCursor();
+}
+
+void CaptureWidget::moveCrosshairUp()
+{
+    QPoint newPos = QCursor::pos();
+    newPos.setY(newPos.y() - 1);
+    QCursor::setPos(newPos);
+    updateCursor();
+}
+
+void CaptureWidget::moveCrosshairDown()
+{
+    QPoint newPos = QCursor::pos();
+    newPos.setY(newPos.y() + 1);
+    QCursor::setPos(newPos);
+    updateCursor();
+}
+
 void CaptureWidget::keyReleaseEvent(QKeyEvent* e)
 {
     if (e->key() == Qt::Key_Control) {
@@ -1592,17 +1624,17 @@ void CaptureWidget::initShortcuts()
                 SLOT(symResizeDown()));
 
     newShortcut(QKeySequence(ConfigHandler().shortcut("TYPE_MOVE_LEFT")),
-                m_selection,
-                SLOT(moveLeft()));
+                this,
+                SLOT(moveCrosshairLeft()));
     newShortcut(QKeySequence(ConfigHandler().shortcut("TYPE_MOVE_RIGHT")),
-                m_selection,
-                SLOT(moveRight()));
+                this,
+                SLOT(moveCrosshairRight()));
     newShortcut(QKeySequence(ConfigHandler().shortcut("TYPE_MOVE_UP")),
-                m_selection,
-                SLOT(moveUp()));
+                this,
+                SLOT(moveCrosshairUp()));
     newShortcut(QKeySequence(ConfigHandler().shortcut("TYPE_MOVE_DOWN")),
-                m_selection,
-                SLOT(moveDown()));
+                this,
+                SLOT(moveCrosshairDown()));
 
     newShortcut(
       QKeySequence(ConfigHandler().shortcut("TYPE_DELETE_CURRENT_TOOL")),
