@@ -200,6 +200,11 @@ CaptureWidget::CaptureWidget(const CaptureRequest& req,
     if (m_config.showMagnifier()) {
         m_magnifier = new MagnifierWidget(
           m_context.screenshot, m_uiColor, m_config.squareMagnifier(), this);
+        m_magnifier->setFocusPolicy(Qt::StrongFocus);
+        connect(m_magnifier, &MagnifierWidget::magnifierMoved, this, [this](const QPoint &pos) {
+            m_context.mousePos = pos;
+            updateMagnifier();
+        });
     }
 
     // Init color picker
@@ -976,6 +981,28 @@ void CaptureWidget::keyPressEvent(QKeyEvent* e)
         QCoreApplication::postEvent(
           this,
           new QKeyEvent(QEvent::KeyPress, Qt::Key_Return, Qt::NoModifier));
+    } else if (m_magnifier && m_magnifier->isVisible()) {
+        // Move magnifier with arrow keys
+        QPoint offset(0, 0);
+        switch (e->key()) {
+            case Qt::Key_Left:
+                offset.setX(-1);
+                break;
+            case Qt::Key_Right:
+                offset.setX(1);
+                break;
+            case Qt::Key_Up:
+                offset.setY(-1);
+                break;
+            case Qt::Key_Down:
+                offset.setY(1);
+                break;
+        }
+        if (!offset.isNull()) {
+            m_magnifier->move(m_magnifier->pos() + offset);
+            m_magnifier->update();
+            e->accept();
+        }
     }
 }
 
