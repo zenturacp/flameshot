@@ -210,6 +210,14 @@ CaptureWidget::CaptureWidget(const CaptureRequest& req,
                 });
     }
 
+private:
+    void updateMagnifier()
+    {
+        if (m_magnifier && m_magnifier->isVisible()) {
+            m_magnifier->update();
+        }
+    }
+
     // Init color picker
     m_colorPicker = new ColorPicker(this);
     connect(m_colorPicker,
