@@ -1482,6 +1482,15 @@ void CaptureWidget::updateActiveLayer(int layer)
     updateSelectionState();
 }
 
+void CaptureWidget::updateMagnifier(const QPoint& pos)
+{
+    if (m_magnifier) {
+        m_magnifier->setPosition(pos);
+        m_magnifier->setPixmap(m_context.screenshot);
+        m_magnifier->update();
+    }
+}
+
 void CaptureWidget::onMoveCaptureToolUp(int captureToolIndex)
 {
     m_captureToolObjectsBackup = m_captureToolObjects;
