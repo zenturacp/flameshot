@@ -201,10 +201,13 @@ CaptureWidget::CaptureWidget(const CaptureRequest& req,
         m_magnifier = new MagnifierWidget(
           m_context.screenshot, m_uiColor, m_config.squareMagnifier(), this);
         m_magnifier->setFocusPolicy(Qt::StrongFocus);
-        connect(m_magnifier, &MagnifierWidget::magnifierMoved, this, [this](const QPoint &pos) {
-            m_context.mousePos = pos;
-            updateMagnifier();
-        });
+        connect(m_magnifier,
+                &MagnifierWidget::magnifierMoved,
+                this,
+                [this](const QPoint& pos) {
+                    m_context.mousePos = pos;
+                    updateMagnifier();
+                });
     }
 
     // Init color picker
