@@ -52,6 +52,7 @@ public:
     ~CaptureWidget();
 
     QPixmap pixmap();
+    void updateMagnifier(const QPoint& pos);
     void setCaptureToolObjects(const CaptureToolObjects& captureToolObjects);
 #if !defined(DISABLE_UPDATE_CHECKER)
     void showAppUpdateNotification(const QString& appLatestVersion,
