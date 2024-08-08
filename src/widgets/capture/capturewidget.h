@@ -103,6 +103,7 @@ protected:
     void keyPressEvent(QKeyEvent* keyEvent) override;
     void keyReleaseEvent(QKeyEvent* keyEvent) override;
     void wheelEvent(QWheelEvent* wheelEvent) override;
+    void moveCursor(const QPoint& delta);
     void resizeEvent(QResizeEvent* resizeEvent) override;
     void moveEvent(QMoveEvent* moveEvent) override;
     void changeEvent(QEvent* changeEvent) override;

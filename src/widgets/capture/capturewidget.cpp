@@ -976,6 +976,21 @@ void CaptureWidget::keyPressEvent(QKeyEvent* e)
         QCoreApplication::postEvent(
           this,
           new QKeyEvent(QEvent::KeyPress, Qt::Key_Return, Qt::NoModifier));
+    } else {
+        switch (e->key()) {
+            case Qt::Key_Left:
+                moveCursor(QPoint(-1, 0));
+                break;
+            case Qt::Key_Right:
+                moveCursor(QPoint(1, 0));
+                break;
+            case Qt::Key_Up:
+                moveCursor(QPoint(0, -1));
+                break;
+            case Qt::Key_Down:
+                moveCursor(QPoint(0, 1));
+                break;
+        }
     }
 }
 
@@ -1927,4 +1942,12 @@ void CaptureWidget::drawInactiveRegion(QPainter* painter)
 
     painter->setClipRegion(grey);
     painter->drawRect(-1, -1, rect().width() + 1, rect().height() + 1);
+}
+void CaptureWidget::moveCursor(const QPoint& delta)
+{
+    QPoint newPos = QCursor::pos() + delta;
+    QCursor::setPos(newPos);
+    m_context.mousePos = mapFromGlobal(newPos);
+    updateCursor();
+    update();
 }
