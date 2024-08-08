@@ -2,7 +2,7 @@ name: Building(CMake)
 
 on:
   push:
-    branches: [ master ]
+    branches: [ curser ]
     paths-ignore:
       - 'README.md'
       - 'LICENSE'
