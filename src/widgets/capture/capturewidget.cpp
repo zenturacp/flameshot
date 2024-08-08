@@ -206,16 +206,10 @@ CaptureWidget::CaptureWidget(const CaptureRequest& req,
                 this,
                 [this](const QPoint& pos) {
                     m_context.mousePos = pos;
-                    updateMagnifier();
+                    if (m_magnifier && m_magnifier->isVisible()) {
+                        m_magnifier->update();
+                    }
                 });
-    }
-
-private:
-    void updateMagnifier()
-    {
-        if (m_magnifier && m_magnifier->isVisible()) {
-            m_magnifier->update();
-        }
     }
 
     // Init color picker
