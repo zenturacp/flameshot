@@ -13,6 +13,9 @@ public:
                              bool isSquare,
                              QWidget* parent = nullptr);
 
+signals:
+    void magnifierMoved(const QPoint& pos);
+
 protected:
     void paintEvent(QPaintEvent*) override;
 
